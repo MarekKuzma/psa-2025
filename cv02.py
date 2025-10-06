@@ -66,8 +66,13 @@ def main():
         elif choice[0] == "2":
             print(library.to_string())
             choice = input("Select item to delete: ")
-            lp = library.find_LP(int(choice) - 1)
-            library.delete_LP(lp)
+            try:
+                lp = library.find_LP(int(choice) - 1)
+                library.delete_LP(lp)
+            except ValueError:
+                print("error: value is not number.")
+            except IndexError:
+                print("error: index does not exist.")
             continue
         elif choice[0] == "3":
             library.clean_library()
