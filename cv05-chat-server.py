@@ -2,6 +2,8 @@
 
 from cv05_chat_protocol import Chat_proto, Ctrl_value
 import socket as s 
+from threading import Thread
+
 IP = "0.0.0.0"
 PORT = 1111
 
@@ -34,6 +36,8 @@ def chat_server():
     while True:
         (client_sock, client_addr) = sock.accept()
         print("Connected client [{}:{}]".format(client_addr[0], client_addr[1]))
+        thread = Thread(target=handle_client, args=(client_sock, chat_proto))
+        thread.start()
         handle_client(client_sock, chat_proto)
 
 if __name__ == "__main__":
